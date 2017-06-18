@@ -12,7 +12,7 @@ RUN apt-get -y update && \
 
 # This build of shock seems to malfunction if we go above Go 1.5
 RUN cd /usr/local && \
-    wget https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz && \
+    wget https://storage.googleapis.com/golang/go1.5.4.linux-amd64.tar.gz && \
     tar xzf go1.5.4.linux-amd64.tar.gz && \
     ln -s /usr/local/go/bin/go /usr/local/bin/go
 
