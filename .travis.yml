@@ -19,7 +19,8 @@ after_success:
   - export REPO=kbase/kb_go
   - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
   - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
-  - docker push $REPO:$TAG
+  - if [ "$TAG" == "master" ] || [ "$TAG" == "develop" ] ; then docker push $REPO:$TAG ; fi
+
 env:
   global:
   - secure: jlEmYcS0Lz1hh44UR6ycLGgzc8NWZF+IGUXKpmZfRcLah7j47grRDYZ8zTlERLHOoxJMr0QFIkO8G1DflrW1OaSmo9Fd55RC8Yz30tei0DJRkxviV/GJXJRxhk3XuSOVYVXLOPH4B+P6+oxULEyQ7kJUr80TB3yv6CBcVJ3wk8XYwjm9kDcsu54uxrBmDz53/zXcD8w4SO3WHRC4x1/H5bvFNBapNhgSrcFvbQy6NFovsS/kr+GspVDjgLSH17n34c3sLdpU1g28ODwfAvfMq4GyCeOYds3ilIwbVWGbVrnFReVJMtvVhpFqf4z792thoFoOjXEkAkRPYsLsSBSJnN9xA81XYPFbXpYCXj3MMwsc//xbD4AkUssbppAWZzpdYGtDi/AevhBdIeyrJ4NVDZmqzR7Cl47q8LY1YK3xFgiEnTC2yhNvwszY7l8SO9FOuMbGh79b+lJqJXVvi18uWcrRBJ1eyc3qBj1niC8Pp+3SONCQxnxACAwsO+lmn7YqdlCPV0Q31uUo6ghqbXaCBUX7mfG9I3rhFBf6G/UtqfhNJOPE0mPSfsI3cZhgXHQ89YJRsVOpRuBNdGEkJ+wImD8YZCh0Qxhmeeu0JQFN/rSv4qV/Nq5viFRp5HCTDaybepKoYR8XOziJRlHEThzBT198oCoI+YMMoiVGsOiKRGk=
