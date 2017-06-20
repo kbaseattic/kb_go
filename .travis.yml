@@ -8,6 +8,21 @@ services:
 before_install:
   - docker pull bitnami/minideb:jessie
 
+before_script:
+  - sudo apt-get update && sudo apt-get install git
+
 script:
   - make
+
+after_success:
+  - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
+  - export REPO=kbase/kb_go
+  - export TAG=`if [ "$TRAVIS_BRANCH" == "master" ]; then echo "latest"; else echo $TRAVIS_BRANCH ; fi`
+  - docker tag $REPO:$TRAVIS_COMMIT $REPO:$TAG
+  - docker push $REPO:$TAG
+env:
+  global:
+  - secure: jlEmYcS0Lz1hh44UR6ycLGgzc8NWZF+IGUXKpmZfRcLah7j47grRDYZ8zTlERLHOoxJMr0QFIkO8G1DflrW1OaSmo9Fd55RC8Yz30tei0DJRkxviV/GJXJRxhk3XuSOVYVXLOPH4B+P6+oxULEyQ7kJUr80TB3yv6CBcVJ3wk8XYwjm9kDcsu54uxrBmDz53/zXcD8w4SO3WHRC4x1/H5bvFNBapNhgSrcFvbQy6NFovsS/kr+GspVDjgLSH17n34c3sLdpU1g28ODwfAvfMq4GyCeOYds3ilIwbVWGbVrnFReVJMtvVhpFqf4z792thoFoOjXEkAkRPYsLsSBSJnN9xA81XYPFbXpYCXj3MMwsc//xbD4AkUssbppAWZzpdYGtDi/AevhBdIeyrJ4NVDZmqzR7Cl47q8LY1YK3xFgiEnTC2yhNvwszY7l8SO9FOuMbGh79b+lJqJXVvi18uWcrRBJ1eyc3qBj1niC8Pp+3SONCQxnxACAwsO+lmn7YqdlCPV0Q31uUo6ghqbXaCBUX7mfG9I3rhFBf6G/UtqfhNJOPE0mPSfsI3cZhgXHQ89YJRsVOpRuBNdGEkJ+wImD8YZCh0Qxhmeeu0JQFN/rSv4qV/Nq5viFRp5HCTDaybepKoYR8XOziJRlHEThzBT198oCoI+YMMoiVGsOiKRGk=
+  - secure: AD8xvmJoRhuGGFg+QlFXvOhpqKxDdBq/+ufbCo1yYTXigaC7D2GRogXcnb+DmIiUAt8VGpY0vxoE7lTHsmnqchUy1EcKU/T2jhaccRNGmPqnIJvIHmjn8/7ansrz4qRcT7rtub59KrRx5UaE0OycuoKOJpwD6OXcWziGhtKn0FUXVpm6Wv9qVVKELfjyOyjNIF9ZCne4ewIfhzRMT00L4YS8zciqNkKzuuXy1ihNE88FjRe3o0m8fl71hiUBfENnoqmdWYN71uP0tDJ4j7sahC9v+ooHo5Kp6iDHRF60O7T44qFBav2ZVQGcuuJWda5NG7gOjiNd+2SL/Ubz4XNHVsK+i9JfcboSnMetJVr8A/ylnkTojtbsYGEILsH50LCROogs9VqDS1kubAnfk1QRv44dRqI9Besr/YueEA6AnacbMx85ETxUVx+699jcjDuSePRYE0T2uJpscKNwbJkyjsK66F9MOg+G9szFHiyS+ZqeIYsmT8yiFsW33O37dC2s3acxVWdLXBq+sTmSEie/Nr8wkIMZfYqQg59ovtXMjw2qZqfNNb0CUVrdipWj66rUFFDV/G8eff8KeZa3xBMlU06ubkPCyB/dzRJ0zdXtXV10xTiuClZfFUzomDzLRsvK5PcPKxB9vkTs2gJyGVJX7RBSsUYhZ4viKQNivjiMSCU=
+  - secure: FbwbY02q1HaZ8yB+ofP46xNbYt9BAPJdC8wFWAgnKL21/X0bZN14+iVp69zUuSBK8Qc8dzjZlaw0NBOPGdZKV+r/5mV9X6vljf5CC78oJJg/USoQUSBUWG463zE0UH7jcf+b7R8ZuGyYBClhu2LWPEA/RRqY1/kNEoQQPE4P2fRLBDjojLVvpQqH6LvR4bGInWgf6pzP2foh5NcK0lDVO/lg1+dmXrQWIs9IVTRFmZeo8/n5tetvCwC+7N9ISCDSjyhqWfrb66rUDmAZgbGgeyBiQKZcaKab1vySMyvUFAYDaUsR39Rh171EkkUh3Tm85CL5VdOiV2xV46U9d3CBqW9v9hErqL4ROlpkMp3DGNO5o4r6z0ERYS+3Zt2aREvgToLpbhKXaG/Izu7o/nPBYxglIyrYHY0t0kNKo121TEksKf3lmQwGTPMpptbYmilvq0btBxWH4LJXUWW6I6i42w/nwI1wKuncyc0f5PU/zEcdcVwaNDy7/FQDSRG26dmBbOArnIpBbrNacYErfSrynR1buSE8m9iME/neAcuEDWDKejzEO80FqKdseTXwQzF/hk9OEZ2OM/JTmlW1MKhcsIB7Mu0x1iIsHuyhl3R/xRvit1rB7X+/G/th4//gLnZIFDi8pkL8PGXFoj2DxVFKxbF7VSrVznMuCYJif7s3P34=
 

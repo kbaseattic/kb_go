@@ -6,4 +6,4 @@
 all: docker_image
 
 docker_image:
-	IMAGE_NAME="kb_go" hooks/build
+	IMAGE_NAME="kbase/kb_go" hooks/build

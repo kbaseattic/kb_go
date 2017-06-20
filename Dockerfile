@@ -5,6 +5,8 @@ MAINTAINER Steve Chan sychan@lbl.gov
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG GO_VER=1.5.4
+ARG BRANCH=develop
 
 RUN apt-get -y update && \
     apt-get -y install wget ca-certificates git make gcc libc-dev libsasl2-dev && \
@@ -20,4 +22,6 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/kbase/kb_go.git" \
       org.label-schema.vcs-ref=$VCS_REF \
       org.label-schema.schema-version="1.0.0-rc1" \
+      us.kbase.go-version=$GO_VER \
+      us.kbase.vcs-branch=$BRANCH
 
