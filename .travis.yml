@@ -1,0 +1,13 @@
+language: bash
+
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker pull bitnami/minideb:jessie
+
+script:
+  - make
+
