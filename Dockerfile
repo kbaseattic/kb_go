@@ -1,6 +1,6 @@
 # creates statically compiled shock-server binary: /go/bin/shock-server
 
-FROM bitnami/minideb:stretch
+FROM bitnami/minideb:jessie
 MAINTAINER Steve Chan sychan@lbl.gov
 
 ARG BUILD_DATE
